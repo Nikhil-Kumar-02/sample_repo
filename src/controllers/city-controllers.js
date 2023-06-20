@@ -20,6 +20,7 @@ const create = async (req,res)=>{
         })
     }
 }
+
 // delete city/:id
 const destroy = async (req,res)=>{
     try {
@@ -40,6 +41,7 @@ const destroy = async (req,res)=>{
         })
     }
 }
+
 //get city/:id
 const get = async (req,res)=>{
     try {
