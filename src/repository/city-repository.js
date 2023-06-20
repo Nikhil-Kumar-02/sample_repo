@@ -16,6 +16,8 @@ class CityRepository {
             const city = await City.destroy({
                 where : {id : cityID}
             });
+            return true;
+            //we are retrning here as in city-service we are expecting to get something back
         }catch(error){
             console.log("something went wrong at the repository layer");
             throw {error};
