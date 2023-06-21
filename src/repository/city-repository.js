@@ -26,12 +26,22 @@ class CityRepository {
     
     async updateCity(data , cityID) {
         try {
-            const city = await City.update(data , {
-                where : {
-                    id : cityID
-                }
-            })
+            // const city = await City.update(data , {
+            //     where : {
+            //         id : cityID
+            //     }
+            // })
+            // return city;
+            //above was returning only the array with th count of updated/affected rows
+
+            //but rather we want to have the updatead result
+
+            const city = await City.findByPk(cityID);
+            city.name = data.name;
+            await city.save();
             return city;
+            //better way will be throw an error even if the primary key sent
+            //does not exists and if it exists then do above
         } catch (error) {
             console.log("something went wrong at the repository layer");
             throw {error};
