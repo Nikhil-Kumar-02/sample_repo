@@ -84,14 +84,16 @@ const update = async (req,res) => {
     }
 }
 
-//get city/
+//get city?name=....
 const getAll = async (req,res) => {
     try {
-        const wholeData = await cityservice.getAllData();
+        // console.log(req.query);
+        // console.log("this line got executed");
+        const wholeData = await cityservice.getAllData(req.query);
         return  res.status(200).json({
             data : wholeData,
             sucess : true,
-            message : "this the whole dataset we currently had",
+            message : "this is the data with this entered prefix",
             err : {}
         })
     } catch (error) {

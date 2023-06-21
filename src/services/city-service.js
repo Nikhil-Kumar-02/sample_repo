@@ -45,9 +45,11 @@ class CityService {
         }
     }
 
-    async getAllData(){
+    async getAllData(prefixname){
         try {
-            const city = this.cityRepository.getAllData();
+            const city = this.cityRepository.getAllData({name : prefixname.name});
+            //i am doing {name : prefixname.name} cuz if in body params other params are also sent
+            //then i will be filtering it here only as the repository layer is sensitive
             return city;
         } catch (error) {
             console.log("something went wrong at the service layer");
