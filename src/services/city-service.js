@@ -1,6 +1,8 @@
 const { CityRepository } = require('../repository/index');
 
 class CityService {
+    //currently whenever we are creating a new cityservice object everytime a new cityrepository 
+    //object is being created how can we resolve this find out yourself till dont know the ans
     constructor(){
         this.cityRepository = new CityRepository();
     }

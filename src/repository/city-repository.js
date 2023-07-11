@@ -3,7 +3,7 @@ const {City , Sequelize} = require('../models/index');
 class CityRepository {
     async createCity({name}){
         try{
-            const city = await City.create({name});
+            const city = await City.create({name});//name : name left name is the col name in the city model
             return city;
         }catch(error){
             console.log("something went wrong at the repository layer");
@@ -32,7 +32,7 @@ class CityRepository {
             //     }
             // })
             // return city;
-            //above was returning only the array with th count of updated/affected rows
+            //above was returning only the array with the count of updated/affected rows
 
             //but rather we want to have the updatead result
 

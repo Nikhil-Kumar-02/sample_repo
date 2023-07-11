@@ -40,6 +40,13 @@
 -One airport can have multiple flights but a flight belongs to a single airport
 
 
+## Tables
+
+### city -> id , name , createAt , updatedAt
+### Airport -> id , name , address , city_id , createdAt , UpdatedAt
+    here we have a relationship that city has many airports and a airport belongs to a city
+    (that is one to many relationship)
+
 /
 //below is a roll base modelling
 
