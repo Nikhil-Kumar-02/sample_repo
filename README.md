@@ -47,6 +47,18 @@
     here we have a relationship that city has many airports and a airport belongs to a city
     (that is one to many relationship)
 
+``
+we have create the Airport model using this command
+npx sequelize model:generate --name Airport --attributes name:String , address:String , cityId:integer
+then we did the associations on the two models cities and airports and set the foreign key and then we did
+npx sequelize db:migrate to bring the db to the local database
+now to fill in the data in the airport we are gonna create a file in seeders using
+npx sequelize seed:generate --name add-airports
+next seed all the data
+npx sequelize db:seed:all
+above will seed every data in the seeders folder
+``
+
 /
 //below is a roll base modelling
 

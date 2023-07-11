@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const {PORT} = require('./config/serverconfig.js');
 const ApiRoutes = require('./router/index.js');
 
+const {Airport,City} = require('./models/index.js');
+
 const setupAndStartServer = async () => {
     
     //create an express object from the module
@@ -14,8 +16,15 @@ const setupAndStartServer = async () => {
     
     app.use('/api' , ApiRoutes);
 
-    app.listen(PORT , () => {
+    app.listen(PORT , async () => {
         console.log(`server started at port number : ${PORT}`);
+        const citydata = await City.findOne({
+            where : {
+                id : 20
+            }
+        })
+        const airportdata = await citydata.getAirports();
+        console.log(citydata,airportdata);
     })
 }
 
