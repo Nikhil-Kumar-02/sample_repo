@@ -70,7 +70,9 @@ class CityRepository {
                 const city = await City.findAll({
                     where :{
                         name : {
-                            [Sequelize.Op.like] : `${prefixname.name}%`
+                            //below both works absolutely fine
+                            //[Sequelize.Op.like] : `${prefixname.name}%`
+                            [Sequelize.Op.startsWith] : prefixname.name
                         }
                     }
                 });
