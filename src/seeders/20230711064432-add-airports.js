@@ -22,6 +22,20 @@ module.exports = {
         updatedAt : new Date()
       },
       {
+        name : "PALAM AIRPORT",
+        address : "delhi",
+        cityId : 26,
+        createdAt : new Date(),
+        updatedAt : new Date()
+      },
+      {
+        name : "SAFDARJUNT AIRPORT",
+        address : "delhi",
+        cityId : 26,
+        createdAt : new Date(),
+        updatedAt : new Date()
+      },
+      {
         name : "Chhatrapati Shivaji International Airport",
         address : "Mumbai",
         cityId : 5,
@@ -105,7 +119,7 @@ module.exports = {
         createdAt : new Date(),
         updatedAt : new Date()
       }
-
+    
     ], {});
   },
 
@@ -116,5 +130,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    
   }
 };
