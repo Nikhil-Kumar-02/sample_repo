@@ -7,5 +7,7 @@
 //this file to get all the models or repositories
 
 module.exports = {
-    CityRepository : require('./city-repository')
+    CityRepository : require('./city-repository'),
+    FlightRepository : require('./flight-repository'),
+    AirplaneRepository : require('./airplane-repository')
 }
