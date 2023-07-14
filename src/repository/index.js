@@ -6,8 +6,12 @@
 //a better way to do this by exporting all of them from here only so that service has to import only 
 //this file to get all the models or repositories
 
+const AirportRepository = require('./airport-repository');
+
 module.exports = {
     CityRepository : require('./city-repository'),
     FlightRepository : require('./flight-repository'),
-    AirplaneRepository : require('./airplane-repository')
+    AirplaneRepository : require('./airplane-repository'),
+    AirportRepository : require('./airport-repository'),
+    CrudRepository : require('./crud-repository')
 }
