@@ -59,6 +59,8 @@ npx sequelize db:seed:all
 above will seed every data in the seeders folder
 ``
 
+now we are receving the api calls which are begin sent from the customer but it makes no sene to take in the incorrct api calls as it will eventually give error message and will waste the database callback time so what we can do is set up a middle ware so that if the incoming request breaches the rest api contract or is unwanted or harmful the we can stop or filter it in the middleware layer
+
 /
 //below is a roll base modelling
 

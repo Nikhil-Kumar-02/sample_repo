@@ -4,7 +4,22 @@ const flightService = new FlightService();
 
 const create = async (req,res) => {
     try {
-        const flight = await flightService.createflightservice(req.body);
+        //current i am directly passing the req.body here but technically we should not
+        //as some extra unwanted data might come along and we have to pass only the
+        //usable feilds otherwise it will make data heavy and bloating my req.body
+
+        const FlightReqData = {
+            flightNumber : req.body.flightNumber,
+            airplaneId : req.body.airplaneId,
+            departureAirportId : req.body.departureAirportId,
+            arrivalAirportId : req.body.arrivalAirportId,
+            arrivalTime : req.body.arrivalTime,
+            departureTime : req.body.departureTime,
+            price : req.body.price
+        }
+        // const flight = await flightService.createflightservice(req.body);
+        const flight = await flightService.createflightservice(FlightReqData);
+        
         return res.status(201).json({
             data : flight,
             sucess : true,
