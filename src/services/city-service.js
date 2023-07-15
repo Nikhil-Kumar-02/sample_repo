@@ -5,9 +5,9 @@ const CrudService = require('./crud-service');
 
 class CityService extends CrudService {
     constructor(){
-        const cityrepository = new CityRepository();
-        super(cityrepository);
-        this.cityRepository = new CityRepository();
+        const cityRepository = new CityRepository();
+        super(cityRepository);
+        this.cityRepository = cityRepository;
     }
 
     // async createCity(data){
