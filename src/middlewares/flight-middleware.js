@@ -1,3 +1,5 @@
+const { CLIENT_ERRORS } = require('../utils/error-codes');
+
 const validateFlight = (req,res,next) => {
 
     if(
@@ -9,7 +11,7 @@ const validateFlight = (req,res,next) => {
         !req.body.departureTime ||
         !req.body.price
     ){
-        return res.status(400).json({
+        return res.status(CLIENT_ERRORS.BAD_REQUEST).json({
             data : {},
             message : "some mandatory feilds are missing",
             sucess : false,
