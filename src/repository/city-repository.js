@@ -1,28 +1,32 @@
+const CrudRepository = require('./crud-repository');
 const {City , Sequelize} = require('../models/index');
 
-class CityRepository {
-    async createCity({name}){
-        try{
-            const city = await City.create({name});//name : name left name is the col name in the city model
-            return city;
-        }catch(error){
-            console.log("something went wrong at the repository layer");
-            throw {error};
-        }
+class CityRepository extends CrudRepository {
+    constructor(){
+        super(City);
     }
+    // async createCity({name}){
+    //     try{
+    //         const city = await City.create({name});//name : name left name is the col name in the city model
+    //         return city;
+    //     }catch(error){
+    //         console.log("something went wrong at the repository layer");
+    //         throw {error};
+    //     }
+    // }
     
-    async deleteCity(cityID){
-        try{
-            const city = await City.destroy({
-                where : {id : cityID}
-            });
-            return true;
-            //we are retrning here as in city-service we are expecting to get something back
-        }catch(error){
-            console.log("something went wrong at the repository layer");
-            throw {error};
-        }
-    }
+    // async deleteCity(cityID){
+    //     try{
+    //         const city = await City.destroy({
+    //             where : {id : cityID}
+    //         });
+    //         return true;
+    //         //we are retrning here as in city-service we are expecting to get something back
+    //     }catch(error){
+    //         console.log("something went wrong at the repository layer");
+    //         throw {error};
+    //     }
+    // }
     
     async updateCity(data , cityID) {
         try {

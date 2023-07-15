@@ -3,7 +3,7 @@ const cityservice = new CityService();
 
 const create = async (req,res)=>{
     try {
-        const city = await cityservice.createCity(req.body);
+        const city = await cityservice.create(req.body);
         return res.status(201).json({
             data : city,
             sucess : true,
@@ -24,7 +24,7 @@ const create = async (req,res)=>{
 // delete city/:id
 const destroy = async (req,res)=>{
     try {
-        const response = await cityservice.deleteCity(req.params.id);
+        const response = await cityservice.delete(req.params.id);
         return res.status(200).json({
             data : response,
             sucess : true,
