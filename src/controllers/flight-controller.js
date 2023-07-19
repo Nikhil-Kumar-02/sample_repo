@@ -59,7 +59,28 @@ const Filteredflight = async (req,res) => {
     }
 }
 
+const getFlight = async (req,res) => {
+    try {
+        const reqFlight = await flightService.getFlight(req.params.id);
+        return res.status(SUCESS_CODES.OK).json({
+            data : reqFlight,
+            sucess : true,
+            message : "flight has been fetched sucessfully",
+            err : {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data : {},
+            sucess : false,
+            message : "Not able to get the flight",
+            err : error
+        })
+    }
+}
+
 module.exports = {
     create,
-    Filteredflight
+    Filteredflight,
+    getFlight
 }

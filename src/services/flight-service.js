@@ -57,6 +57,16 @@ class FlightService {
             throw {error};
         }
     }
+
+    async getFlight(flightId){
+        try {
+            const reqFlight = await this.flightRepository.getflight(flightId);
+            return reqFlight;
+        } catch (error) {
+            console.log("something went wrong at the flight service layer");
+            throw {error};
+        }
+    }
 }
 
 module.exports = FlightService;
