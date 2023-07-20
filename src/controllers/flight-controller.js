@@ -77,10 +77,36 @@ const getFlight = async (req,res) => {
             err : error
         })
     }
+
 }
+
+const updateFlight = async (req,res) => {
+    try {
+        const updatedFlightDetails = await flightService.updateFlight(req.body , req.params.feild);
+        //here feild is the area where we want an update, can be seats ,
+        // time , date , boardingGate , price
+        return res.status(201).json({
+            data : updatedFlightDetails,
+            sucess : true,
+            message : "flight has been updated sucessfully",
+            err : {}
+        })
+    } catch (error) {
+        onsole.log('something went wrong in the controller layer');
+        return res.status(500).json({
+            data : {},
+            sucess : false,
+            message : "Not able to update the flight",
+            err : error
+        })
+    }
+}
+
 
 module.exports = {
     create,
     Filteredflight,
-    getFlight
+    getFlight,
+    updateFlight
 }
+

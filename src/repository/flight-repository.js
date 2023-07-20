@@ -95,6 +95,7 @@ class FlightRepository {
     //need to search in the whole database
     async getflight(flightId){
         try {
+            console.log('reached the flight repo')
             const flights = await flight.findByPk(flightId);
             return flights;
         } catch (error) {
@@ -132,7 +133,22 @@ class FlightRepository {
         }
     }
 
-
+    //i will be updating the seats of the flight whose id i will be recieving here
+    async updateFlight(data , flightNumber){
+        try {
+            //here we have hardcoded the flightNumber explicitly but we can also create the 
+            //filter for this just like above and pass that object || where : createdFilterObject
+            const UpdatedFlightDetails = await flight.update(data , {
+                where : {
+                    flightNumber : flightNumber
+                }
+            })
+            return UpdatedFlightDetails;
+        } catch (error) {
+            console.log("something went wrong at the flight repository layer while updating seats");
+            throw {error};
+        }
+    }
 }
 
 module.exports = FlightRepository;
