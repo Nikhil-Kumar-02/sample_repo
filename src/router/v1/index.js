@@ -12,10 +12,10 @@ router.get('/city/:id' , CityController.get);
 router.patch('/city/:id' , CityController.update);
 router.get('/city' , CityController.getAll)
 
-router.post('/flights',FlightMiddlewares.validateFlight , FlightController.create);
-router.get('/flights',FlightController.Filteredflight);
-router.get('/flight/:id',FlightController.getFlight);
-router.patch('/flight/:feild' , FlightController.updateFlight);
+router.post('/createFlight',FlightMiddlewares.validateFlight , FlightController.create);
+router.get('/getFlights',FlightController.Filteredflight);
+router.get('/flightById/:id',FlightController.getFlight);
+router.patch('/updateFlight/:feild' , FlightController.updateFlight);
 
 router.post('/airports',AirportController.createNewAirport);
 router.delete('/airports/:id',AirportController.deleteAirport);

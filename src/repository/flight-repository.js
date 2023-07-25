@@ -1,20 +1,101 @@
-const { flight } = require('../models/index');
+const { flight , City , Airport} = require('../models/index');
 const { Op } = require('sequelize');
 
 class FlightRepository {
 
-    #createFilter(filterdata){
+    async getAllAirportsFunction(cityName){
+
+        const CityAllAirortsId = [];
+
+        const cityNameObject = await City.findOne({
+            where : {
+                name : cityName
+            }
+        });
+        const CityAllAirorts = await Airport.findAll({
+            where : {
+                cityId : cityNameObject.id
+            }
+        });
+
+        CityAllAirorts.forEach((airport) => {
+            CityAllAirortsId.push(airport.id);
+        });
+
+        return CityAllAirortsId;
+    }
+
+    async createFilter(filterdata){
         const newFilter = {};
         //or we can use below as we are assiging same for everything except price
         //so the things where we are assigning the same need not to be done now
         // const newFilter = {...filterdata};
 
-        if(filterdata.arrivalAirportId){
-            newFilter.arrivalAirportId = filterdata.arrivalAirportId;
-        }
-        if(filterdata.departureAirportId){
-            newFilter.departureAirportId = filterdata.departureAirportId;
-        }
+
+        //i will get from and to city
+        //i have to show result of all flights from the arrival city to the destination city
+        //step 1 : i will get the city id from the city name
+        //step 2 : i will fetch all the airports with this city id
+        //step 3 : i will show result of all flights who are flying in between these cities
+
+        // if(filterdata.from){
+        //     //i have city name and i will get its id
+        //     const fromCity = await City.findOne({
+        //         where : {
+        //             name : filterdata.from
+        //         }
+        //     });
+        //     //i have city id now i will get all airports in that city
+        //     const fromCityAllAirorts = await Airport.findAll({
+        //         where : {
+        //             cityId : fromCity.id
+        //         }
+        //     });
+        //     const fromCityAllAirortsId = [];
+        //     //i have all airports now i will store all those airports id
+        //     fromCityAllAirorts.forEach((airport) => {
+        //         fromCityAllAirortsId.push(airport.id);
+        //     });
+
+        //     //now since the departureairportId has an array of values so we have to run the command like
+        //     //select * from airports where departureairportId in (..........)
+        //     //and below written will work as that only see documentation
+        //     /*
+        //     Shorthand syntax for Op.in
+        //     Post.findAll({
+        //         where: {
+        //             id: [1,2,3] // Same as using `id: { [Op.in]: [1,2,3] }`
+        //         }
+        //         });
+        //         // SELECT ... FROM "posts" AS "post" WHERE "post"."id" IN (1, 2, 3);
+        //     */
+
+
+        //     newFilter.departureAirportId = fromCityAllAirortsId;
+        // }
+        if(filterdata.from)
+            newFilter.departureAirportId = await this.getAllAirportsFunction(filterdata.from);
+        // if(filterdata.to){
+        //     const toCity = await City.findOne({
+        //         where : {
+        //             name : filterdata.to
+        //         }
+        //     });
+        //     const toCityAllAirorts = await Airport.findAll({
+        //         where : {
+        //             cityId : toCity.id
+        //         }
+        //     });
+        //     const toCityAllAirortsId = [];
+
+        //     toCityAllAirorts.forEach((airport) => {
+        //         toCityAllAirortsId.push(airport.id);
+        //     });
+
+        //     newFilter.arrivalAirportId = toCityAllAirortsId;
+        // }
+        if(filterdata.to)
+            newFilter.arrivalAirportId = await this.getAllAirportsFunction(filterdata.to);
 
         // if(filterdata.minPrice){
         //     Object.assign(newFilter ,{price : { [Op.gte] : filterdata.minPrice} });
@@ -69,15 +150,45 @@ class FlightRepository {
         // Object.assign(newFilter , { [Op.and] : filterArray });
         
         //for TIME
-        if(filterdata.arrivalTime){
-            newFilter.arrivalTime = { [Op.lte] : filterdata.arrivalTime};
-        }
-        if(filterdata.departureTime){
-            newFilter.departureTime = { [Op.lte] : filterdata.departureTime };
-        }
+        // if(filterdata.arrivalTime){
+        //     newFilter.arrivalTime = { [Op.lte] : filterdata.arrivalTime};
+        // }
+        // if(filterdata.departureTime){
+        //     newFilter.departureTime = { [Op.lte] : filterdata.departureTime };
+        // }
 
         return newFilter;
     }
+    
+    //here we are about to use the custom filteration
+    //that is on the basis of price,place,distination,time,date or combination of any filters 
+    async getFilteredflight(filter){
+        try {
+            console.log('rached just before the filteration beginning');
+            const createdFilterObject = await this.createFilter(filter);
+            console.log('the created filter object is :' , createdFilterObject);
+            const flights = await flight.findAll({
+                where : createdFilterObject
+            });
+            /*
+                how above will look like
+                {
+                    where : {
+                        arrivalAirportId : 4,
+                        departureAirportId : 7,
+                        price : {
+                            [Op.gte] : minPrice
+                        }
+                    }
+                }
+            */
+            return flights;
+        } catch (error) {
+            console.log("something went wrong at the flight repository layer");
+            throw {error};
+        }
+    }
+
 
     async createFlight(data){
         try {
@@ -105,33 +216,6 @@ class FlightRepository {
     }
 
 
-    //here we are about to use the custom filteration
-    //that is on the basis of price,place,distination,time,date or combination of any filters 
-    //in the req order
-    async getFilteredflight(filter){
-        try {
-            const createdFilterObject = this.#createFilter(filter);
-            const flights = await flight.findAll({
-                where : createdFilterObject
-            });
-            /*
-                how above will look like
-                {
-                    where : {
-                        arrivalAirportId : 4,
-                        departureAirportId : 7,
-                        price : {
-                            [Op.gte] : minPrice
-                        }
-                    }
-                }
-            */
-            return flights;
-        } catch (error) {
-            console.log("something went wrong at the flight repository layer");
-            throw {error};
-        }
-    }
 
     //i will be updating the seats of the flight whose id i will be recieving here
     async updateFlight(data , flightNumber){

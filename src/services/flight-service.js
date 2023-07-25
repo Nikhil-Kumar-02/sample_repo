@@ -27,7 +27,7 @@ class FlightService {
         try {
             //before creating a flight in the database we have to make sure that the departure 
             //time should be less then the arrival time
-            if(!comparetime(data.arrivalTime,data.departureTime)){
+            if(comparetime(data.arrivalTime,data.departureTime)){
                 throw {error : "arrival time cant be less then departure time"};
             }
 
