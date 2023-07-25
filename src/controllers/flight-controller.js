@@ -19,7 +19,7 @@ const create = async (req,res) => {
             price : req.body.price
         }
         // const flight = await flightService.createflightservice(req.body);
-        const flight = await flightService.createflightservice(FlightReqData);
+        const flight = await flightService.createflightservice(FlightReqData,req.headers['x-access-token']);
         
         return res.status(SUCESS_CODES.CREATED).json({
             data : flight,

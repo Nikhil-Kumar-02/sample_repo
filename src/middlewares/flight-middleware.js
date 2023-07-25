@@ -9,7 +9,8 @@ const validateFlight = (req,res,next) => {
         !req.body.arrivalAirportId ||
         !req.body.arrivalTime ||
         !req.body.departureTime ||
-        !req.body.price
+        !req.body.price ||
+        !req.headers['x-access-token']
     ){
         return res.status(CLIENT_ERRORS.BAD_REQUEST).json({
             data : {},
@@ -18,6 +19,7 @@ const validateFlight = (req,res,next) => {
             error : "missing mandatory feilds to create a flight"
         })
     }
+    console.log('reached the flight middleware' , req.headers['x-access-token']);
     next();
 }
 

@@ -164,7 +164,6 @@ class FlightRepository {
     //that is on the basis of price,place,distination,time,date or combination of any filters 
     async getFilteredflight(filter){
         try {
-            console.log('rached just before the filteration beginning');
             const createdFilterObject = await this.createFilter(filter);
             console.log('the created filter object is :' , createdFilterObject);
             const flights = await flight.findAll({
