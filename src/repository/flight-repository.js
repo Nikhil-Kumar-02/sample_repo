@@ -214,6 +214,17 @@ class FlightRepository {
         }
     }
 
+    //if i want to get the airport name from the airport id
+    async getAirportName(airportId){
+        try {
+            const airportName = await Airport.findByPk(airportId);
+            return airportName;
+        } catch (error) {
+            //not handling the error gracefully as there is very less posibility that id will be wrong
+            //as the id is being passed from the data recieved from the database itself
+            throw error;
+        }
+    }
 
 
     //i will be updating the seats of the flight whose id i will be recieving here
